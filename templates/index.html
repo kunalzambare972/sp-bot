@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Spherical Robot Control</title>
+    <link rel="stylesheet" type="text/css" href="../static/styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.socket.io/4.0.1/socket.io.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="title">
+        <p class="sp">Spherical</p>
+        <p class="bt">Robot</p>
+      </div>
+      <div class="left_logo">
+        <img src="../static/images/iitb_logo.png" alt="IITB" />
+      </div>
+      <div class="right_logo">
+        <img src="../static/images/ncetis_logo.png" alt="NCETIS" />
+      </div>
+      <div class="exit">
+        <button onclick="logout()">
+          <i class="fa-sharp fa-solid fa-power-off"></i>
+        </button>
+      </div>
+      <div class="fullscrn_btn">
+        <button onclick="toggleFullscreen()">
+          <i class="fa-sharp fa-solid fa-expand"></i>
+        </button>
+      </div>
+
+      <div class="camera-view">
+        <img
+          id="video"
+          width="640"
+          height="480"
+          src="/video_feed"
+          alt="Camera Feed"
+        />
+      </div>
+
+      <div class="control-panel left">
+        <label for="verticalControl"></label>
+        <input
+          type="range"
+          min="0"
+          max="100"
+          value="50"
+          class="seekbar vertical-seekbar"
+          id="verticalControl"
+          oninput="updateControls()"
+        />
+      </div>
+
+      <div class="control-panel right">
+        <label for="horizontalControl"></label>
+        <input
+          type="range"
+          min="0"
+          max="100"
+          value="50"
+          class="seekbar horizontal-seekbar"
+          id="horizontalControl"
+          oninput="updateControls()"
+        />
+      </div>
+    </div>
+
+    <script>
+      // Function to send control updates to the server
+      function updateControls() {
+        const motorSpeed = document.getElementById("verticalControl").value;
+        const servoAngle = document.getElementById("horizontalControl").value;
+
+        // Send AJAX request to Flask server with the updated values
+        $.ajax({
+          url: "/control",
+          type: "POST",
+          contentType: "application/json",
+          data: JSON.stringify({
+            motor_speed: motorSpeed,
+            servo_angle: servoAngle,
+          }),
+          success: function (response) {
+            console.log("Control updated successfully:", response);
+          },
+          error: function (error) {
+            console.error("Error updating control:", error);
+          },
+        });
+      }
+
+      // Function to handle logout (stub function)
+      function logout() {
+        console.log("Logout function triggered");
+        // Add your logout logic here
+      }
+
+      // Function to toggle fullscreen mode (stub function)
+      function toggleFullscreen() {
+        if (!document.fullscreenElement) {
+          document.documentElement.requestFullscreen();
+        } else {
+          if (document.exitFullscreen) {
+            document.exitFullscreen();
+          }
+        }
+      }
+    </script>
+  </body>
+</html>

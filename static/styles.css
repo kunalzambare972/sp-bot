@@ -1,0 +1,250 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #F0F0F0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+  .title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    font-family: "SUSE", sans-serif;
+  }
+  .title p.sp {
+    color: #ec533a;
+    margin-top: 5px;
+    margin-bottom: 0;
+    font-size: 24px;
+    font-weight: 700;
+  }
+  .title p.bt {
+    margin-top: 5px;
+    margin-left: 5px;
+    margin-bottom: 0;
+    color: #004f9f;
+    font-size: 20px;
+    font-weight: 700;
+  }
+
+.left_logo {
+    display: inline-block;
+    position: absolute;
+    left: 20px;
+    top: 20px;
+}
+
+.right_logo {
+    display: inline-block;
+    position: absolute;
+    left: 20px; /* Align with .left_logo if needed */
+    top: calc(20px + 50px + 250px); /* Adjust the value as needed */
+    transform: rotate(-90deg);
+    transform-origin: top left; /* Ensure rotation origin is at the top-left corner */
+}
+
+.left_logo img {
+    width: 60px;
+    border-radius: 10px;
+}
+
+.right_logo img {
+    height: 60px;
+}
+
+.exit {
+    position: absolute;
+    right: 20px; /* Align with .left_logo and .right_logo if needed */
+    top: 20px;
+    width: 50px;
+}
+
+.exit button {
+    width: 50px;
+    height: 50px;
+    background-color: #ec533a;
+    color: white;
+    border: none;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    font-size: 24px;
+    font-weight: 500;
+    border: none;
+    box-shadow: 5px 5px 0px 1px #004f9f;
+    transition: box-shadow 0.3s ease;
+}
+
+.exit button:hover {
+    box-shadow: 0px 0px 0px 1px #004f9f;
+    color: #ec533a;
+    background-color: #004f9f;
+}
+.fullscrn_btn {
+    position: absolute;
+    right: 20px; /* Align with .left_logo and .right_logo if needed */
+    top: 90px;
+    width: 50px;
+}
+
+.fullscrn_btn button {
+    width: 50px;
+    height: 50px;
+    background-color: #ec533a;
+    color: white;
+    border: none;
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    font-size: 24px;
+    font-weight: 500;
+    border: none;
+    box-shadow: 5px 5px 0px 1px #004f9f;
+    transition: box-shadow 0.3s ease;
+}
+
+.fullscrn_btn button:hover {
+    box-shadow: 0px 0px 0px 1px #004f9f;
+    color: #ec533a;
+    background-color: #004f9f;
+}
+.control-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.left, .right {
+    position: absolute;
+}
+
+.left {
+    left: 5px;
+    top: 60%;
+    transform: translateY(-50%);
+}
+
+.right {
+    right: 5px;
+    bottom: 10px;
+}
+
+.vertical-seekbar {
+    transform: rotate(-90deg);
+    width: 300px;
+    height: 15px;
+}
+
+.horizontal-seekbar {
+    margin-bottom: 50px;
+    margin-right: 100px;
+    width: 300px;
+    height: 15px;
+}
+
+.seekbar {
+    -webkit-appearance: none;
+    background: #004F9F;
+    outline: none;
+    transition: opacity .2s;
+}
+
+.seekbar::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 30px;
+    height: 70px;
+    border-radius: 15px;
+    background: #EC533A;
+    cursor: pointer;
+}
+
+.seekbar::-moz-range-thumb {
+    width: 30px;
+    height: 70px;
+    border-radius: 15px;
+    background: #EC533A;
+    cursor: pointer;
+}
+
+.camera-view {
+    width: 100%;
+    max-width: 800px;
+    height: 800px;
+    aspect-ratio: 4 / 3;
+    background: #000;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#cameraFeed {
+    width: 100%;
+    height: 100%;
+}
+
+.orientation-warning {
+    display: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    text-align: center;
+}
+
+@media only screen and (orientation: portrait) {
+    .container {
+        display: none;
+    }
+    .orientation-warning {
+        display: block;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        align-items: center;
+        padding: 10px;
+    }
+
+    .left, .right {
+        position: static;
+        margin: 20px 0;
+    }
+
+    .horizontal-seekbar {
+        margin-bottom: 20px; /* Adjusted margin to move the seekbar up */
+    }
+
+    .camera-view {
+        width: 100%;
+        height: 100vh; /* Adjusted height to stretch the video feed */
+        margin: 10px; /* Space for logos above the camera view */
+        background-size: cover; /* Ensure the video feed covers the entire area */
+        clip-path: none; /* Removed clip-path for full stretch */
+    }
+
+    .logo {
+        width: 10px; /* Adjust the size for mobile */
+    }
+}
