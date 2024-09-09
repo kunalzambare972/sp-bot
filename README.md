@@ -33,7 +33,7 @@ This project is built for Raspberry Pi Zero W, using the following main componen
    source env/bin/activate
    pip install -r requirements.txt
 
-3. **Run the application on boot**:</br>
+3. **Run the application on boot** (This is first time setup of raspberrypi only):</br>
    i. Create a systemd service file:</br>
       ```
       sudo nano /etc/systemd/system/flask_app.service
