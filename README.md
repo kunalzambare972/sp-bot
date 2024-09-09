@@ -113,8 +113,32 @@ This project is built for Raspberry Pi Zero W, using the following main componen
       http://<your_raspberry_pi_hostname>:5000
       
       ```
-      Replace <your_raspberry_pi_ip> or <your_raspberry_pi_hostname> with the actual IP address or hostname of your Raspberry Pi respectively.</br>
+      * Replace <your_raspberry_pi_ip> or <your_raspberry_pi_hostname> with the actual IP address or hostname of your Raspberry Pi respectively.</br>
 
+## To access and interact with your the application:
+
+1. **Ensure Both Devices Are on the Same Network**:</br>
+   - Make sure your Android device and Raspberry Pi are connected to the same Wi-Fi network.</br>
+
+2. **Find the Raspberry Pi’s IP Address**:</br>
+   - You need the IP address of your Raspberry Pi to access the Flask application or else you can access it via hostname of the raspberry pi as well.</br>
+   - To get the ip adress of the raspberry pi, download any network scanner application and scan the network for ip address, where you would get the ip of the raspberry pi.</br>
+3. **Open a Web Browser on Your Android Device**</br>:
+   - Launch a Web Browser: Open a web browser (such as Chrome, Firefox, or any other browser) on your Android device.</br>
+   - Enter the IP Address and Port: Type the IP address of your Raspberry Pi followed by the port number where your Flask application is running. For example:</br>
+     ```
+      http://<your_raspberry_pi_ip>:5000
+
+      or
+
+      http://<your_raspberry_pi_hostname>:5000
+      
+      ```
+      * Replace <your_raspberry_pi_ip> or <your_raspberry_pi_hostname> with the actual IP address or hostname of your Raspberry Pi respectively.</br>
+      
+3. **Access the Web Interface**:</br>
+   - You should see the web interface of your Flask application.</br>
+   
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
