@@ -83,7 +83,8 @@ This project is built for Raspberry Pi Zero W, using the following main componen
         WantedBy=multi-user.target
 
         ```
-        Replace the User= "pi" with your username.</br>
+        * Replace the User= "pi" with your username.</br>
+        
       - Enable the pigpiod service:</br>
          ```
          sudo systemctl enable pigpiod.service
