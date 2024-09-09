@@ -24,8 +24,8 @@ This project is built for Raspberry Pi Zero W, using the following main componen
 1. **Clone the repository**:
 
    ```bash
-   git clone https://github.com/yourusername/Flask-RaspberryPi-Camera-Control.git
-   cd Flask-RaspberryPi-Camera-Control
+   https://github.com/kunalzambare972/sp-bot
+   cd sp-bot
 
 2. **Install the required Python libraries**:
    ```bash
@@ -58,11 +58,12 @@ This project is built for Raspberry Pi Zero W, using the following main componen
       - Replace /path/to/your/project with the actual directory of your project.</br>
       - Replace /path/to/your/env/bin with the actual path to your Python virtual environment.</br>
       - Replace the User= "pi" with your username. </br>
-   iii. Enable the service:</br>
+      
+   iii. **Enable the service**:</br>
       ```
       sudo systemctl enable flask_app.service
       ```
-   iv. To ensure pigpio runs on boot for your Raspberry Pi Zero W</br>
+   iv. **To ensure pigpio runs on boot for your Raspberry Pi Zero W**:</br>
       - Create a systemd service file for pigpio:</br>
         ```
         sudo nano /etc/systemd/system/pigpiod.service
