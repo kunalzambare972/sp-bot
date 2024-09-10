@@ -102,7 +102,7 @@ This project is built for Raspberry Pi Zero W, using the following main componen
         ```
       - Check the status of the Flask service:</br>
         ```
-        sudo systemctl status flaskapp.service
+        sudo systemctl status flask_app.service
         ```
    vii. **Test or Run the Flask application for Spherical Bot Control**:</br>
       ```
