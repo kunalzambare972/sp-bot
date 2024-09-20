@@ -12,11 +12,9 @@ flask-json==0.3.4
 pigpio==1.78
 
 # picamera2 and dependencies for camera control
-picamera2==0.3.12
 pybind11==2.11.1
 numpy==1.26.4
 Pillow==8.1.2
-libcamera==0.0.1
 
 # OpenCV for image processing
 opencv-python==4.5.5.62
@@ -43,12 +41,6 @@ smbus2==0.4.1
 gpiozero==1.6.2
 
 # Additional useful libraries for Raspberry Pi and sensors
-automationhat==0.2.0
-envirophat==1.0.0
-scrollphat==0.0.7
-scrollphathd==1.2.1
-sense-hat==2.6.0
-unicornhathd==0.0.4
 rpi-ws281x==5.0.0
 
 # Python libraries for general use and hardware control
@@ -61,7 +53,7 @@ simplejson==3.17.2
 six==1.16.0
 urllib3==1.26.5
 
-# Additional sensor/control libraries (as mentioned in the original list)
+# Additional sensor/control libraries
 pantilthat==0.0.7
 phatbeat==0.1.1
 fourletterphat==0.1.0
