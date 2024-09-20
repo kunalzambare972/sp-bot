@@ -29,9 +29,9 @@ This project is built for Raspberry Pi Zero W, using the following main componen
 
 2. **Install the required Python libraries**:
    ```bash
-   python3 -m venv env
-   source env/bin/activate
-   pip3 install -r requirements.txt
+   python3 -m venv .venv
+   source .venv/bin/activate
+   python3 -m pip install -r requirements.txt
 
 3. **Run the application on boot** (This is first time setup of raspberrypi only):</br>
    i. Create a systemd service file:</br>
