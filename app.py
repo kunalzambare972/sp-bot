@@ -58,8 +58,8 @@ def control_motor(direction, speed):
 
 # Servo control function
 def sync_servos(angle):
-    pulse_width_1 = map_value(-angle, -30, 30, 1300, 2000)
-    pulse_width_2 = map_value(angle, -30, 30, 1000, 1800)
+    pulse_width_1 = map_value(-angle, -90 ,90, 1000, 2000)
+    pulse_width_2 = map_value(angle, -90 ,90, 1000, 2000)
     pi.set_servo_pulsewidth(22, pulse_width_1)
     pi.set_servo_pulsewidth(23, pulse_width_2)
 
