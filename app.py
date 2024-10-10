@@ -82,7 +82,7 @@ def video_feed():
 # Home route serving the control page
 @app.route('/')
 def index():
-    return render_template('index.html')  # Ensure your HTML file is named index.html
+    return render_template('index.html')  # Ensure HTML file is named index.html
 
 # Route to handle control commands
 @app.route('/control', methods=['POST'])
@@ -92,7 +92,14 @@ def control():
     if 'motor_speed' in data:
         motor_speed = int(data['motor_speed'])
         direction = motor_speed >= 50  # Forward if above 50, backward otherwise
+        
+        # Calculate the speed and restrict to a max of 165 (65% of 255)
         speed = abs(motor_speed - 50) * 2  # Scale speed (0-100)
+        max_speed = 165  # 65% of the max duty cycle for the motor
+        
+        # Ensure speed does not exceed max_speed
+        speed = min(speed, max_speed)
+
         control_motor(direction, speed)
 
     if 'servo_angle' in data:
