@@ -1,39 +1,39 @@
 # Flask and its dependencies
-Flask==2.3.2
-Jinja2==3.1.2
-Werkzeug==2.3.6
-itsdangerous==2.1.2
-click==8.1.7
+Flask
+Jinja2
+Werkzeug
+itsdangerous
+click
 
 # Flask JSON response support
-flask-json==0.3.4
+flask-json
 
 # pigpio for GPIO control
-pigpio==1.78
+pigpio
 
 # picamera2 and lightweight dependencies for camera control
-pybind11==2.11.1
-numpy==1.21.6  # A lightweight, older version of numpy
-Pillow==8.1.2
+pybind11
+numpy
+Pillow
 
 # Headless OpenCV for image processing (no GUI components)
-opencv-python-headless==4.5.5.62
+opencv-python-headless
 
 # Lightweight Adafruit BNO055 sensor library and dependencies (if using IMU)
-adafruit-circuitpython-bno055==5.4.13
-adafruit-circuitpython-busdevice==5.2.9
-adafruit-circuitpython-register==1.9.18
-Adafruit-Blinka==8.45.0
+adafruit-circuitpython-bno055
+adafruit-circuitpython-busdevice
+adafruit-circuitpython-register
+Adafruit-Blinka
 
 # BusIO for I2C communication
-busio==5.1.0
+busio
 
 # Lightweight Raspberry Pi specific modules
-RPi.GPIO==0.7.1
-smbus2==0.4.1
+RPi.GPIO
+smbus2
 
 # Additional lightweight libraries for Raspberry Pi and sensors
-rpi-ws281x==5.0.0
+rpi-ws281x
 
 # Lightweight Python libraries for general use
-requests==2.25.1
+requests
