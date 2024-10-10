@@ -11,48 +11,29 @@ flask-json==0.3.4
 # pigpio for GPIO control
 pigpio==1.78
 
-# picamera2 and dependencies for camera control
+# picamera2 and lightweight dependencies for camera control
 pybind11==2.11.1
-numpy==1.26.4
+numpy==1.21.6  # A lightweight, older version of numpy
 Pillow==8.1.2
 
-# OpenCV for image processing
-opencv-python==4.5.5.62
-opencv-contrib-python==4.5.5.62   # If you need extra OpenCV functionality
+# Headless OpenCV for image processing (no GUI components)
+opencv-python-headless==4.5.5.62
 
-# Adafruit BNO055 sensor library and dependencies (if using IMU)
+# Lightweight Adafruit BNO055 sensor library and dependencies (if using IMU)
 adafruit-circuitpython-bno055==5.4.13
 adafruit-circuitpython-busdevice==5.2.9
-adafruit-circuitpython-connectionmanager==3.1.1
 adafruit-circuitpython-register==1.9.18
-adafruit-circuitpython-requests==4.1.1
-adafruit-circuitpython-typing==1.10.3
 Adafruit-Blinka==8.45.0
-Adafruit-PlatformDetect==3.71.0
-Adafruit-PureIO==1.1.11
 
 # BusIO for I2C communication
 busio==5.1.0
 
-# Raspberry Pi specific modules
+# Lightweight Raspberry Pi specific modules
 RPi.GPIO==0.7.1
 smbus2==0.4.1
-gpiozero==1.6.2
 
-# Additional useful libraries for Raspberry Pi and sensors
+# Additional lightweight libraries for Raspberry Pi and sensors
 rpi-ws281x==5.0.0
 
-# Python libraries for general use and hardware control
-beautifulsoup4==4.9.3
-blinker==1.4
-pygame==1.9.6
-pyserial==3.5b0
+# Lightweight Python libraries for general use
 requests==2.25.1
-simplejson==3.17.2
-six==1.16.0
-urllib3==1.26.5
-
-
-# Debugging and utilities
-pylint==2.7.2
-mypy==0.812
