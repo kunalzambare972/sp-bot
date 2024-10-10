@@ -10,12 +10,15 @@ import cv2
 app = Flask(__name__)
 
 # Initialize camera
-picam2 = Picamera2()
-picam2.preview_configuration.main.size = (320, 240)
-picam2.preview_configuration.main.format = "RGB888"
-picam2.preview_configuration.controls.FrameRate = 15  # Set FPS
-picam2.configure("preview")
-picam2.start()
+try:
+    picam2 = Picamera2()
+    picam2.preview_configuration.main.size = (320, 240)
+    picam2.preview_configuration.main.format = "RGB888"
+    picam2.preview_configuration.controls.FrameRate = 15  # Set FPS
+    picam2.configure("preview")
+    picam2.start()
+except Exception as e:
+    print(f"Error initializing camera: {e}")
 
 # Initialize pigpio for servo and motor control
 pi = pigpio.pi()
@@ -26,13 +29,7 @@ pi.set_mode(17, pigpio.OUTPUT)  # Motor AIN2
 pi.set_mode(18, pigpio.OUTPUT)  # Motor AIN1
 pi.set_mode(27, pigpio.OUTPUT)  # Motor STBY
 
-# IMU Setup (commented out)
-# i2c = busio.I2C(board.SCL, board.SDA)
-# sensor = adafruit_bno055.BNO055_I2C(i2c)
-
 # Global variables
-fps_counter = 0
-latency = 0.0
 motor_speed = 50  # Default speed
 servo_angle = 0   # Default servo angle
 
@@ -58,39 +55,24 @@ def control_motor(direction, speed):
 
 # Servo control function
 def sync_servos(angle):
-    pulse_width_1 = map_value(-angle, -30, 30, 1300, 2000)
-    pulse_width_2 = map_value(angle, -30, 30, 1000, 1800)
+    pulse_width_1 = map_value(-angle, -90, 90, 1000, 2000)
+    pulse_width_2 = map_value(angle, -90, 90, 1000, 2000)
     pi.set_servo_pulsewidth(22, pulse_width_1)
     pi.set_servo_pulsewidth(23, pulse_width_2)
 
 # Video feed generation
 def generate_frames():
-    global fps_counter, latency
-    prev_time = time.time()
-    frame_count = 0
-
     while True:
-        start_time = time.time()
-        frame = picam2.capture_array()
-        frame_count += 1
-        end_time = time.time()
-        latency = (end_time - start_time) * 1000  # Convert to milliseconds
-
-        # Calculate FPS
-        if (end_time - prev_time) >= 1.0:
-            fps_counter = frame_count / (end_time - prev_time)
-            prev_time = end_time
-            frame_count = 0
-
-        # Draw FPS and latency on frame
-        cv2.putText(frame, f'FPS: {fps_counter:.2f}', (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 1)
-        cv2.putText(frame, f'Latency: {latency:.2f} ms', (10, 60), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 1)
-
-        # Encode frame as JPEG
-        _, buffer = cv2.imencode('.jpg', frame)
-        frame = buffer.tobytes()
-        yield (b'--frame\r\n'
-               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+        try:
+            frame = picam2.capture_array()
+            # Encode frame as JPEG
+            _, buffer = cv2.imencode('.jpg', frame)
+            frame = buffer.tobytes()
+            yield (b'--frame\r\n'
+                   b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+        except Exception as e:
+            print(f"Error capturing frame: {e}")
+            break
 
 # Route for video feed
 @app.route('/video_feed')
