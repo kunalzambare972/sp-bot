@@ -1,58 +1,23 @@
 # Flask and its dependencies
-Flask==2.3.2
-Jinja2==3.1.2
-Werkzeug==2.3.6
-itsdangerous==2.1.2
-click==8.1.7
+Flask
+Jinja2
+Werkzeug
+itsdangerous
+click
 
 # Flask JSON response support
-flask-json==0.3.4
+flask-json
 
 # pigpio for GPIO control
-pigpio==1.78
+pigpio
 
-# picamera2 and dependencies for camera control
-pybind11==2.11.1
-numpy==1.26.4
-Pillow==8.1.2
+# picamera2 and lightweight dependencies for camera control
+pybind11
+numpy
+Pillow
 
-# OpenCV for image processing
-opencv-python==4.5.5.62
-opencv-contrib-python==4.5.5.62   # If you need extra OpenCV functionality
-
-# Adafruit BNO055 sensor library and dependencies (if using IMU)
-adafruit-circuitpython-bno055==5.4.13
-adafruit-circuitpython-busdevice==5.2.9
-adafruit-circuitpython-connectionmanager==3.1.1
-adafruit-circuitpython-register==1.9.18
-adafruit-circuitpython-requests==4.1.1
-adafruit-circuitpython-typing==1.10.3
-Adafruit-Blinka==8.45.0
-Adafruit-PlatformDetect==3.71.0
-Adafruit-PureIO==1.1.11
-
-# BusIO for I2C communication
-busio==5.1.0
-
-# Raspberry Pi specific modules
-RPi.GPIO==0.7.1
-smbus2==0.4.1
-gpiozero==1.6.2
-
-# Additional useful libraries for Raspberry Pi and sensors
-rpi-ws281x==5.0.0
-
-# Python libraries for general use and hardware control
-beautifulsoup4==4.9.3
-blinker==1.4
-pygame==1.9.6
-pyserial==3.5b0
-requests==2.25.1
-simplejson==3.17.2
-six==1.16.0
-urllib3==1.26.5
-
-
-# Debugging and utilities
-pylint==2.7.2
-mypy==0.812
+# Lightweight Adafruit BNO055 sensor library and dependencies (if using IMU)
+adafruit-circuitpython-bno055
+adafruit-circuitpython-busdevice
+adafruit-circuitpython-register
+Adafruit-Blinka
