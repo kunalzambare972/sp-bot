@@ -3,8 +3,7 @@ import pigpio
 import busio
 import board
 import time
-from picamera2 import Picamera2
-import cv2
+from picamera2 import Picamera2, MjpegEncoder
 
 # Initialize Flask application
 app = Flask(__name__)
@@ -26,15 +25,12 @@ pi.set_mode(17, pigpio.OUTPUT)  # Motor AIN2
 pi.set_mode(18, pigpio.OUTPUT)  # Motor AIN1
 pi.set_mode(27, pigpio.OUTPUT)  # Motor STBY
 
-# IMU Setup (commented out)
-# i2c = busio.I2C(board.SCL, board.SDA)
-# sensor = adafruit_bno055.BNO055_I2C(i2c)
-
 # Global variables
 fps_counter = 0
 latency = 0.0
 motor_speed = 50  # Default speed
 servo_angle = 0   # Default servo angle
+max_pwm_speed = 185  # Set maximum speed to 185 PWM
 
 # Mapping function for scaling values
 def map_value(value, axes_min, axes_max, actuate_min, actuate_max):
@@ -45,16 +41,17 @@ def map_value(value, axes_min, axes_max, actuate_min, actuate_max):
 
 # Motor control function
 def control_motor(direction, speed):
+    pwm_value = map_value(speed, 0, 100, 0, max_pwm_speed)
     if direction:
         pi.write(27, 1)  # Disable standby (active low)
         pi.write(18, 0)
         pi.write(17, 1)
-        pi.set_PWM_dutycycle(13, speed)
+        pi.set_PWM_dutycycle(13, pwm_value)
     else:
         pi.write(27, 1)  # Disable standby (active low)
         pi.write(18, 1)
         pi.write(17, 0)
-        pi.set_PWM_dutycycle(13, speed)
+        pi.set_PWM_dutycycle(13, pwm_value)
 
 # Servo control function
 def sync_servos(angle):
@@ -63,11 +60,12 @@ def sync_servos(angle):
     pi.set_servo_pulsewidth(22, pulse_width_1)
     pi.set_servo_pulsewidth(23, pulse_width_2)
 
-# Video feed generation
+# Video feed generation using MJPEG encoder
 def generate_frames():
     global fps_counter, latency
     prev_time = time.time()
     frame_count = 0
+    encoder = MjpegEncoder()
 
     while True:
         start_time = time.time()
@@ -82,15 +80,10 @@ def generate_frames():
             prev_time = end_time
             frame_count = 0
 
-        # Draw FPS and latency on frame
-        cv2.putText(frame, f'FPS: {fps_counter:.2f}', (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 1)
-        cv2.putText(frame, f'Latency: {latency:.2f} ms', (10, 60), cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 0), 1)
-
-        # Encode frame as JPEG
-        _, buffer = cv2.imencode('.jpg', frame)
-        frame = buffer.tobytes()
+        # Encode frame as MJPEG
+        encoded_frame = encoder.encode(frame)
         yield (b'--frame\r\n'
-               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
+               b'Content-Type: image/jpeg\r\n\r\n' + encoded_frame + b'\r\n')
 
 # Route for video feed
 @app.route('/video_feed')
