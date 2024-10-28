@@ -1,40 +1,38 @@
-# Flask and its dependencies
-Flask
-Jinja2
-Werkzeug
-itsdangerous
-click
+#!/bin/bash
 
-# Flask JSON response support
-flask-json
+# Update package list and install Python pip if not already installed
+echo "Updating package list..."
+sudo apt update
 
-# pigpio for GPIO control
-pigpio
+echo "Installing pip for Python 3..."
+sudo apt install -y python3-pip
 
-# picamera2 and lightweight dependencies for camera control
-pybind11
-numpy
+# Install each required Python package one by one
+echo "Installing Flask..."
+pip3 install Flask
 
-Pillow
+echo "Installing pigpio..."
+pip3 install pigpio
 
-# Headless OpenCV for image processing (no GUI components)
-opencv-python-headless
+echo "Installing pybind11..."
+pip3 install pybind11
 
-# Lightweight Adafruit BNO055 sensor library and dependencies (if using IMU)
-adafruit-circuitpython-bno055
-adafruit-circuitpython-busdevice
-adafruit-circuitpython-register
-Adafruit-Blinka
+echo "Installing numpy..."
+pip3 install numpy
 
-# BusIO for I2C communication
-busio
+echo "Installing OpenCV..."
+pip3 install opencv-python
 
-# Lightweight Raspberry Pi specific modules
-RPi.GPIO
-smbus2
+echo "Installing Adafruit CircuitPython BNO055..."
+pip3 install adafruit-circuitpython-bno055
 
-# Additional lightweight libraries for Raspberry Pi and sensors
-rpi-ws281x
+echo "Installing Adafruit CircuitPython BusDevice..."
+pip3 install adafruit-circuitpython-busdevice
 
-# Lightweight Python libraries for general use
-requests
+echo "Installing Adafruit CircuitPython Register..."
+pip3 install adafruit-circuitpython-register
+
+echo "Installing Adafruit Blinka..."
+pip3 install adafruit-blinka
+
+echo "All packages installed successfully."
