@@ -14,22 +14,17 @@ pigpio
 # picamera2 and lightweight dependencies for camera control
 pybind11
 numpy
-<<<<<<< HEAD
 
-=======
 Pillow
 
 # Headless OpenCV for image processing (no GUI components)
 opencv-python-headless
 
->>>>>>> ead1ef72cc69654ce91b5f725d2564125b344202
 # Lightweight Adafruit BNO055 sensor library and dependencies (if using IMU)
 adafruit-circuitpython-bno055
 adafruit-circuitpython-busdevice
 adafruit-circuitpython-register
 Adafruit-Blinka
-<<<<<<< HEAD
-=======
 
 # BusIO for I2C communication
 busio
@@ -43,4 +38,3 @@ rpi-ws281x
 
 # Lightweight Python libraries for general use
 requests
->>>>>>> ead1ef72cc69654ce91b5f725d2564125b344202

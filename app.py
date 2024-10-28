@@ -12,15 +12,9 @@ app = Flask(__name__)
 # Initialize camera
 try:
     picam2 = Picamera2()
-<<<<<<< HEAD
-    picam2.preview_configuration.main.size = (640, 480)
+    picam2.preview_configuration.main.size = (640, 480)  # Set resolution to 640x480
     picam2.preview_configuration.main.format = "RGB888"
-    picam2.preview_configuration.controls.FrameRate = 10  # Set FPS
-=======
-    picam2.preview_configuration.main.size = (320, 240)
-    picam2.preview_configuration.main.format = "RGB888"
-    picam2.preview_configuration.controls.FrameRate = 15  # Set FPS
->>>>>>> ead1ef72cc69654ce91b5f725d2564125b344202
+    picam2.preview_configuration.controls.FrameRate = 10  # Set FPS to 10
     picam2.configure("preview")
     picam2.start()
 except Exception as e:
