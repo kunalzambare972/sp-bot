@@ -14,7 +14,6 @@ pigpio
 # picamera2 and lightweight dependencies for camera control
 pybind11
 numpy
-Pillow
 
 # Lightweight Adafruit BNO055 sensor library and dependencies (if using IMU)
 adafruit-circuitpython-bno055
