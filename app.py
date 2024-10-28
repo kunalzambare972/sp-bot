@@ -1,24 +1,10 @@
 from flask import Flask, render_template, Response, request, jsonify
 import pigpio
-import busio
-import board
-import time
-from picamera2 import Picamera2
-import cv2
+import os
+import subprocess
 
 # Initialize Flask application
 app = Flask(__name__)
-
-# Initialize camera
-try:
-    picam2 = Picamera2()
-    picam2.preview_configuration.main.size = (640, 480)  # Set resolution to 640x480
-    picam2.preview_configuration.main.format = "RGB888"
-    picam2.preview_configuration.controls.FrameRate = 10  # Set FPS to 10
-    picam2.configure("preview")
-    picam2.start()
-except Exception as e:
-    print(f"Error initializing camera: {e}")
 
 # Initialize pigpio for servo and motor control
 pi = pigpio.pi()
@@ -33,14 +19,32 @@ pi.set_mode(27, pigpio.OUTPUT)  # Motor STBY
 motor_speed = 50  # Default speed
 servo_angle = 0   # Default servo angle
 
-# Mapping function for scaling values
-def map_value(value, axes_min, axes_max, actuate_min, actuate_max):
-    axes_span = axes_max - axes_min
-    actuate_span = actuate_max - actuate_min
-    value_scaled = float(value - axes_min) / float(axes_span)
-    return int(actuate_min + (value_scaled * actuate_span))
+# HLS configuration
+HLS_DIR = "hls"
+os.makedirs(HLS_DIR, exist_ok=True)
 
-# Motor control function
+# Function to start HLS streaming
+def start_hls_stream():
+    cmd = [
+        'ffmpeg',
+        '-f', 'v4l2',  # Use video4linux2 input
+        '-i', '/dev/video0',  # Adjust this if your camera is on a different device
+        '-preset', 'veryfast',
+        '-vf', 'scale=640:480',  # Scale to 640x480
+        '-hls_time', '2',  # Duration of each segment
+        '-hls_list_size', '0',  # Unlimited number of playlist entries
+        '-hls_wrap', '0',  # Don't wrap around
+        '-start_number', '0',
+        os.path.join(HLS_DIR, 'output.m3u8')  # Output playlist file
+    ]
+    
+    # Run ffmpeg as a subprocess
+    subprocess.Popen(cmd)
+
+# Start HLS stream
+start_hls_stream()
+
+# Function to control motors
 def control_motor(direction, speed):
     if direction:
         pi.write(27, 1)  # Disable standby (active low)
@@ -53,31 +57,17 @@ def control_motor(direction, speed):
         pi.write(17, 0)
         pi.set_PWM_dutycycle(13, speed)
 
-# Servo control function
+# Function to sync servos
 def sync_servos(angle):
     pulse_width_1 = map_value(-angle, -90, 90, 1000, 2000)
     pulse_width_2 = map_value(angle, -90, 90, 1000, 2000)
     pi.set_servo_pulsewidth(22, pulse_width_1)
     pi.set_servo_pulsewidth(23, pulse_width_2)
 
-# Video feed generation
-def generate_frames():
-    while True:
-        try:
-            frame = picam2.capture_array()
-            # Encode frame as JPEG
-            _, buffer = cv2.imencode('.jpg', frame)
-            frame = buffer.tobytes()
-            yield (b'--frame\r\n'
-                   b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n')
-        except Exception as e:
-            print(f"Error capturing frame: {e}")
-            break
-
 # Route for video feed
 @app.route('/video_feed')
 def video_feed():
-    return Response(generate_frames(), mimetype='multipart/x-mixed-replace; boundary=frame')
+    return Response(open(os.path.join(HLS_DIR, 'output.m3u8')), mimetype='application/vnd.apple.mpegurl')
 
 # Home route serving the control page
 @app.route('/')
