@@ -9,30 +9,30 @@ sudo apt install -y python3-pip
 
 # Install each required Python package one by one
 echo "Installing Flask..."
-pip3 install Flask
+pip3 install Flask --break-system-packages
 
 echo "Installing pigpio..."
-pip3 install pigpio
+pip3 install pigpio --break-system-packages
 
 echo "Installing pybind11..."
-pip3 install pybind11
+pip3 install pybind11 --break-system-packages
 
 echo "Installing numpy..."
-pip3 install numpy
+pip3 install numpy --break-system-packages
 
 echo "Installing OpenCV..."
-pip3 install opencv-python
+pip3 install opencv-python --break-system-packages
 
 echo "Installing Adafruit CircuitPython BNO055..."
-pip3 install adafruit-circuitpython-bno055
+pip3 install adafruit-circuitpython-bno055 --break-system-packages
 
 echo "Installing Adafruit CircuitPython BusDevice..."
-pip3 install adafruit-circuitpython-busdevice
+pip3 install adafruit-circuitpython-busdevice --break-system-packages
 
 echo "Installing Adafruit CircuitPython Register..."
-pip3 install adafruit-circuitpython-register
+pip3 install adafruit-circuitpython-register --break-system-packages
 
 echo "Installing Adafruit Blinka..."
-pip3 install adafruit-blinka
+pip3 install adafruit-blinka --break-system-packages
 
 echo "All packages installed successfully."
