@@ -1,4 +1,4 @@
-# Spherical Bot Flask Based Control Application
+# Spherical Bot Application
 
 This project allows you to control a Raspberry Pi Zero W-based robot using a Flask web application. The application streams live video from the Raspberry Pi's camera (using OpenCV and Picamera2) and provides motor and servo control through the web interface. It also supports IMU feedback via an Adafruit BNO055 sensor.
 
