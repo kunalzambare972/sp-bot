@@ -24,7 +24,7 @@ This project is built for Raspberry Pi Zero W, using the following main componen
 1. **Clone the repository**:
 
    ```bash
-   https://github.com/kunalzambare972/sp-bot
+   git clone https://github.com/kunalzambare972/sp-bot
    cd sp-bot
 
 2. **Install the required Python libraries**:
