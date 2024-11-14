@@ -84,9 +84,10 @@ This project is built for Raspberry Pi Zero W, using the following main componen
       ```
 
    vi. **Check the status of spbot application service**:</br>
-        ```
-        sudo systemctl status spbot.service
-        ```
+      ```
+      sudo systemctl status spbot.service
+      ```
+        
 ## To access and interact with your the application:
 
 1. **Ensure Both Devices Are on the Same Network**:</br>
