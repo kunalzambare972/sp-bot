@@ -72,7 +72,7 @@ This project is built for Raspberry Pi Zero W, using the following main componen
         ```
         sudo nano /etc/rc.local
         ```
-      - Add the following text to the rc.local file between the if and fi of the rc.local script:</br>
+      - Add the following text to the rc.local file between the if and fi lines of the rc.local script:</br>
         ```
         sudo pigpiod
         sudo systemctl start spbot.service
