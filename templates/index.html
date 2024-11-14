@@ -97,6 +97,17 @@
         });
       }
 
+      // Function to reset sliders to center position
+      function resetSliders() {
+        document.getElementById("verticalControl").value = 50;
+        document.getElementById("horizontalControl").value = 50;
+        updateControls();
+      }
+
+      // Event listeners to reset sliders when user releases them
+      document.getElementById("verticalControl").addEventListener("mouseup", resetSliders);
+      document.getElementById("verticalControl").addEventListener("touchend", resetSliders);
+
       // Function to handle logout (stub function)
       function logout() {
         console.log("Logout function triggered");
