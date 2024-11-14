@@ -29,92 +29,64 @@ This project is built for Raspberry Pi Zero W, using the following main componen
 
 2. **Install the required Python libraries**:
    ```bash
-   python3 -m venv .venv
-   source .venv/bin/activate
-   python3 -m pip install -r requirements.txt
+   sudo ./requirements.sh
 
 3. **Run the application on boot** (This is first time setup of raspberrypi only):</br>
-   i. Create a systemd service file:</br>
+   i. Create  a systemd service file:</br>
       ```
       sudo nano /etc/systemd/system/flask_app.service
       ```
-   ii. Add the following configuration to the flask_app.service file:</br>
+   ii. Add the following configuration to the spbot.service file:</br>
       ```
       [Unit]
-      Description=Spherical Robot Control using Flask 
+      Description=Spherical Robot Control 
       After=network.target
 
       [Service]
-      ExecStart=/usr/bin/python3 /path/to/your/app.py
-      WorkingDirectory=/path/to/your/project
+      ExecStart=/usr/bin/python3 /home/sp/sp-bot/app.py
+      WorkingDirectory=/home/sp/sp-bot/
       Restart=always
-      User=pi
-      Environment="PATH=/path/to/your/env/bin"
+      User=sp
       
       [Install]
       WantedBy=multi-user.target
       ```
-      - Replace /path/to/your/app.py with the actual path to your application.</br>
-      - Replace /path/to/your/project with the actual directory of your project.</br>
-      - Replace /path/to/your/env/bin with the actual path to your Python virtual environment.</br>
-      - Replace the User= "pi" with your username. </br>
+      - Replace /home/sp/sp-bot/app.py with the actual path to your application.</br>
+      - Replace /home/sp/sp-bot/ with the actual directory of your project.</br>
+      - Replace the User= "sp" with your username. </br>
+
       
    iii. **Enable the service**:</br>
       ```
-      sudo systemctl enable flask_app.service
+      sudo systemctl spbot.service
       ```
-   iv. **To ensure pigpio runs on boot for your Raspberry Pi Zero W**:</br>
+   
+   iv. **Reload the system domain**:</br>
+      ```
+      sudo systemctl daemon-reload
+      ```
+
+
+   v. **To ensure pigpio and spbot flask serivceruns on boot for your Raspberry Pi Zero 2 W**:</br>
       - Create a systemd service file for pigpio:</br>
         ```
-        sudo nano /etc/systemd/system/pigpiod.service
+        sudo nano /etc/rc.local
         ```
-      - Add the following configuration to the pigpiod.service file:</br>
+      - Add the following text to the rc.local file between the if and fi of the rc.local script:</br>
         ```
-        [Unit]
-        Description=Pigpio daemon
-        After=network.target
-
-        [Service]
-        ExecStart=/usr/bin/pigpiod
-        Restart=always
-        User=pi
-
-        [Install]
-        WantedBy=multi-user.target
-
+        sudo pigpiod
+        sudo systemctl start spbot.service
         ```
-        * Replace the User= "pi" with your username.</br>
-        
-      - Enable the pigpiod service:</br>
-         ```
-         sudo systemctl enable pigpiod.service
-         ```
          
-   v. **Restart the Raspi Zero**:
+   vi. **Restart the Raspi Zero**:
       ```
       sudo reboot
       ```
 
-   vi. **Check the status of pigpio and flask application service**:</br>
-      - Check the status for Pigpio service:</br>
+   vi. **Check the status of spbot application service**:</br>
         ```
-        sudo systemctl status pigpiod.service
+        sudo systemctl status spbot.service
         ```
-      - Check the status of the Flask service:</br>
-        ```
-        sudo systemctl status flask_app.service
-        ```
-   vii. **Test or Run the Flask application for Spherical Bot Control**:</br>
-      ```
-      http://<your_raspberry_pi_ip>:5000
-
-      or
-
-      http://<your_raspberry_pi_hostname>:5000
-      
-      ```
-      * Replace <your_raspberry_pi_ip> or <your_raspberry_pi_hostname> with the actual IP address or hostname of your Raspberry Pi respectively.</br>
-
 ## To access and interact with your the application:
 
 1. **Ensure Both Devices Are on the Same Network**:</br>
