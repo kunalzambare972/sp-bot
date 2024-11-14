@@ -11,7 +11,7 @@ app = Flask(__name__)
 
 # Initialize camera
 picam2 = Picamera2()
-picam2.preview_configuration.main.size = (320, 240)
+picam2.preview_configuration.main.size = (640, 640)
 picam2.preview_configuration.main.format = "RGB888"
 picam2.preview_configuration.controls.FrameRate = 15  # Set FPS
 picam2.configure("preview")

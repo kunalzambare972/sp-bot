@@ -187,7 +187,7 @@ body {
     width: 100%;
     max-width: 720px;
     height: 720px;
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 1 / 1;
     background: #000;
     margin-top: 10px;
     margin-bottom: 10px;
